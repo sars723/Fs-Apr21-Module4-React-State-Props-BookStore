@@ -1,23 +1,24 @@
-import { Card, Container, Row, Col } from "react-bootstrap";
-import fantasyBooks from "../data/fantasy.json";
+import React from "react";
+import { Card } from "react-bootstrap";
 
-const SingleBook = ({ props, search }) => {
-  return (
-    <Container>
-      <Row>
-        {props.map((book) => (
-          <Col xs={12} md={4} lg={3}>
-            <Card>
-              <Card.Img variant="top" src={book.img} />
-              <Card.Body>
-                <Card.Title>{book.title}</Card.Title>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
-    </Container>
-  );
-};
+class SingleBook extends React.Component {
+  state = {
+    selected: false,
+  };
+
+  render() {
+    return (
+      <Card
+        onClick={() => this.setState({ selected: !this.state.selected })}
+        style={{ border: this.state.selected ? "3px solid red" : "none" }}
+      >
+        <Card.Img variant="top" src={this.props.book.img} />
+        <Card.Body>
+          <Card.Title>{this.props.book.title}</Card.Title>
+        </Card.Body>
+      </Card>
+    );
+  }
+}
 
 export default SingleBook;
