@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, ListGroup, Row, Col } from "react-bootstrap";
+import { Container, ListGroup, Row, Col, Button } from "react-bootstrap";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
 
@@ -32,6 +32,33 @@ class CommentsList extends Component {
       this.setState({ isLoading: false, isError: true });
     }
   };
+
+  handleDelete = async () => {
+    {
+      console.log("hello");
+    }
+    try {
+      const response = await fetch(
+        "https://striveschool-api.herokuapp.com/api/comments/" + this.props.id,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFlM2YzMGNlYWY0ODAwMTVjOTE4NjkiLCJpYXQiOjE2MjI3MjA1MzAsImV4cCI6MTYyMzkzMDEzMH0.OTc-m0erU3r4uTPFifXTrLY5-jzZVD5IRHs1arBxFCc",
+            "Content-type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        alert("comment deleted successfully");
+      } else {
+        alert("something went wrong with the deletion process");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   render() {
     return (
       <div>
@@ -47,14 +74,10 @@ class CommentsList extends Component {
               <Col xs={12}>
                 {<img src={this.props.image} style={{ width: "120px" }} />}
                 <ListGroup>
-                  {/* filter((book, i) => i < 12) */}
                   {this.state.comments
                     .filter((comment, i) => i < 3)
                     .map((comment) => (
                       <>
-                        {/*  <ListGroup.Item key={comment.id}>
-                          {<img src={this.props.image} />}
-                        </ListGroup.Item> */}
                         <ListGroup.Item key={comment.id}>
                           {comment.name}
                         </ListGroup.Item>
@@ -64,6 +87,14 @@ class CommentsList extends Component {
                         <ListGroup.Item key={comment.id}>
                           {comment.comment}
                         </ListGroup.Item>
+                        <Button
+                          variant="danger"
+                          id="delete-btn"
+                          onClick={() => this.handleDelete()}
+                          type="submit"
+                        >
+                          delete
+                        </Button>
                       </>
                     ))}
                 </ListGroup>
