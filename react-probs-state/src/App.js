@@ -6,6 +6,7 @@ import fantasyBooks from "../src/data/fantasy.json";
 import SingleBook from "./components/SingleBook";
 import BookList from "./components/BookList";
 import { Col } from "react-bootstrap";
+import CommentArea from "./components/CommentArea";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       <WarningSign message="alert message to be displayed" />
       <MyBadge text="a text to display" color="danger" />
       <h3>Single Book</h3>
-      <Col xs={2} className="mx-auto">
+      {/* <CommentArea /> */}
+      <Col xs={4} className="mx-auto">
         <SingleBook book={fantasyBooks[0]} />
       </Col>
 

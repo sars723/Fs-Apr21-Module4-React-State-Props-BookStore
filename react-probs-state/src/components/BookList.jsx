@@ -28,7 +28,7 @@ class BookList extends React.Component {
                   book.title.toLowerCase().indexOf(this.state.search) !== -1
               )
               .map((book) => (
-                <Col xs={12} md={4} lg={3}>
+                <Col xs={3}>
                   <SingleBook book={book} />
                   {console.log(book)}
                 </Col>
