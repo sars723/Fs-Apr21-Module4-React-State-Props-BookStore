@@ -45,10 +45,10 @@ class CommentsList extends Component {
   ) : (
     <></>
   )} */
-  componentDidUpdate = () => {
-    if (this.props.selectedMovie) {
-      //   console.log(this.props.selectedMovie);
-      //   this.fetchComments();
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.selectedMovie !== this.props.selectedMovie) {
+      console.log(this.props.selectedMovie);
+      this.fetchComments();
     }
   };
 
@@ -90,7 +90,7 @@ class CommentsList extends Component {
               <Col xs={12}>
                 {<img src={this.props.image} style={{ width: "120px" }} />}
 
-                {this.props.updatedComments.length > 0
+                {this.props.updatedComments.length < 0
                   ? this.props.updatedComments.map((comment) => (
                       <>
                         <ListGroup key={comment.id}>
