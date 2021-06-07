@@ -21,11 +21,12 @@ class SingleBook extends React.Component {
             <Card.Title>{this.props.book.title}</Card.Title>
           </Card.Body>
         </Card>
-        {this.state.selected ? (
-          <CommentArea id={this.props.book.asin} image={this.props.book.img} />
-        ) : (
-          <></>
-        )}
+        {console.log(this.props.book.asin)}
+        <CommentArea
+          id={this.props.book.asin}
+          image={this.props.book.img}
+          selected={this.state.selected}
+        />
       </>
     );
   }

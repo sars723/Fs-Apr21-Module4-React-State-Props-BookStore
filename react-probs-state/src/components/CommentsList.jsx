@@ -10,6 +10,9 @@ class CommentsList extends Component {
     isError: false,
   };
   componentDidMount = async () => {
+    this.fetchComments();
+  };
+  fetchComments = async () => {
     try {
       let response = await fetch(
         "https://striveschool-api.herokuapp.com/api/comments/" + this.props.id,
@@ -22,6 +25,7 @@ class CommentsList extends Component {
         }
       );
       console.log(response);
+      console.log(this.props.selected);
       this.setState({
         comments: await response.json(),
         isLoading: false,
@@ -32,14 +36,26 @@ class CommentsList extends Component {
       this.setState({ isLoading: false, isError: true });
     }
   };
-
-  handleDelete = async () => {
-    {
-      console.log("hello");
+  /*  {this.state.selected ? (
+    <CommentArea
+      id={this.props.book.asin}
+      image={this.props.book.img}
+      selected={this.state.selected}
+    />
+  ) : (
+    <></>
+  )} */
+  componentDidUpdate = () => {
+    if (this.props.selectedMovie) {
+      //   console.log(this.props.selectedMovie);
+      //   this.fetchComments();
     }
+  };
+
+  handleDelete = async (id) => {
     try {
       const response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/comments/" + this.props.id,
+        "https://striveschool-api.herokuapp.com/api/comments/" + id,
         {
           method: "DELETE",
           headers: {
@@ -73,31 +89,42 @@ class CommentsList extends Component {
             <Row>
               <Col xs={12}>
                 {<img src={this.props.image} style={{ width: "120px" }} />}
-                <ListGroup>
-                  {this.state.comments
-                    .filter((comment, i) => i < 3)
-                    .map((comment) => (
+
+                {this.props.updatedComments.length > 0
+                  ? this.props.updatedComments.map((comment) => (
                       <>
-                        <ListGroup.Item key={comment.id}>
-                          {comment.name}
-                        </ListGroup.Item>
-                        <ListGroup.Item key={comment.id}>
-                          {comment.rate}
-                        </ListGroup.Item>
-                        <ListGroup.Item key={comment.id}>
-                          {comment.comment}
-                        </ListGroup.Item>
-                        <Button
-                          variant="danger"
-                          id="delete-btn"
-                          onClick={() => this.handleDelete()}
-                          type="submit"
-                        >
-                          delete
-                        </Button>
+                        <ListGroup key={comment.id}>
+                          <ListGroup.Item>{comment.name}</ListGroup.Item>
+                          <ListGroup.Item>{comment.rate}</ListGroup.Item>
+                          <ListGroup.Item>{comment.comment}</ListGroup.Item>
+                          <Button
+                            variant="danger"
+                            id="delete-btn"
+                            onClick={() => this.handleDelete(comment._id)}
+                            type="submit"
+                          >
+                            delete
+                          </Button>
+                        </ListGroup>
+                      </>
+                    ))
+                  : this.state.comments.map((comment) => (
+                      <>
+                        <ListGroup key={comment.id}>
+                          <ListGroup.Item>{comment.name}</ListGroup.Item>
+                          <ListGroup.Item>{comment.rate}</ListGroup.Item>
+                          <ListGroup.Item>{comment.comment}</ListGroup.Item>
+                          <Button
+                            variant="danger"
+                            id="delete-btn"
+                            onClick={() => this.handleDelete(comment._id)}
+                            type="submit"
+                          >
+                            delete
+                          </Button>
+                        </ListGroup>
                       </>
                     ))}
-                </ListGroup>
               </Col>
             </Row>
           </Container>

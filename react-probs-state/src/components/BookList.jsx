@@ -1,6 +1,7 @@
 import React from "react";
 import SingleBook from "./SingleBook";
 import { FormControl, Row, Col, Container } from "react-bootstrap";
+/* import SearchForm from "./SearchForm"; */
 class BookList extends React.Component {
   state = {
     search: "",
@@ -12,6 +13,10 @@ class BookList extends React.Component {
         <Container>
           <Row>
             <Col>
+              {/*  <SearchForm
+                value={this.state.search}
+                onChange={(e) => this.setState({ search: e.target.value })}
+              /> */}
               <FormControl
                 className="my-3"
                 placeholder="Search"
@@ -39,14 +44,5 @@ class BookList extends React.Component {
     );
   }
 }
-/* const BookList = ({ category }) => {
-    return (
-      <>
-        <h3>Book Lists</h3>
-        <FormControl className="my-3" placeholder="Search" />
-        <SingleBook category={category} />
-      </>
-    );
-  }; */
 
 export default BookList;

@@ -6,9 +6,10 @@ class CommentArea extends Component {
   state = {
     comments: {
       comment: "",
-      rate: 0,
+      rate: 1,
       elementId: "",
     },
+    updatedComments: [],
   };
   inputChange = (e) => {
     this.setState({
@@ -27,15 +28,33 @@ class CommentArea extends Component {
         {
           method: "POST",
           headers: {
+            "Content-type": "application/json",
             Authorization:
               "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFlM2YzMGNlYWY0ODAwMTVjOTE4NjkiLCJpYXQiOjE2MjI3MjA1MzAsImV4cCI6MTYyMzkzMDEzMH0.OTc-m0erU3r4uTPFifXTrLY5-jzZVD5IRHs1arBxFCc",
-            "Content-type": "application/json",
           },
           body: JSON.stringify(this.state.comments),
         }
       );
       if (response.ok) {
         alert("comment saved!");
+
+        let response = await fetch(
+          "https://striveschool-api.herokuapp.com/api/comments/" +
+            this.state.comments.elementId,
+          {
+            headers: {
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFlM2YzMGNlYWY0ODAwMTVjOTE4NjkiLCJpYXQiOjE2MjI3MjA1MzAsImV4cCI6MTYyMzkzMDEzMH0.OTc-m0erU3r4uTPFifXTrLY5-jzZVD5IRHs1arBxFCc",
+              "Content-type": "application/json",
+            },
+          }
+        );
+        console.log(response);
+        console.log(this.props.selected);
+        this.setState({
+          updatedComments: await response.json(),
+          isLoading: false,
+        });
         this.setState({
           comments: {
             comment: "",
@@ -43,6 +62,7 @@ class CommentArea extends Component {
             elementId: "",
           },
         });
+        /* this.props.onNewComment(await response.json()) */
       }
     } catch (err) {
       console.log(err);
@@ -54,7 +74,13 @@ class CommentArea extends Component {
         <h3>Comment Area</h3>
         <Row>
           <Col xs={12}>
-            <CommentsList id={this.props.id} image={this.props.image} />
+            {console.log(this.props.selected)}
+            <CommentsList
+              id={this.props.id}
+              image={this.props.image}
+              selectedMovie={this.props.selected}
+              updatedComments={this.state.updatedComments}
+            />
             {/* <ListGroup>
               {this.state.comments.map((comment) => (
                 <>
@@ -109,7 +135,6 @@ class CommentArea extends Component {
                   placeholder="Enter id"
                   value={this.state.comments.elementId}
                   id="elementId"
-                  // with value I'm reflecting into the input what I have into the state
                   onChange={(e) => this.inputChange(e)}
                 />
               </Form.Group>
