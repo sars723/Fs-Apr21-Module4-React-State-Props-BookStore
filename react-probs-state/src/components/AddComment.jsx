@@ -6,7 +6,6 @@ const AddComment = () => {
     rate: 0,
     comment: "",
   });
-
   const submitComment = (e) => {
     setComments({
       [e.target.id]: e.target.value,
