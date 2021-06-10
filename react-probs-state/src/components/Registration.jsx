@@ -16,6 +16,7 @@ class Registration extends Component {
     emailErr: "",
     passwordErr: "",
     passwordConfirmErr: "",
+    formValid: true,
   };
   inputChange = (e) => {
     this.setState(
@@ -35,11 +36,13 @@ class Registration extends Component {
       this.setState({
         nameErr: "Name must be at least 2 characters long",
       });
+      this.setState({ formValid: false });
     }
     if (this.state.registration.surName.length < 3) {
       this.setState({
         surNameErr: "Surname must be at least 3 characters long",
       });
+      this.setState({ formValid: false });
     }
     /*   if (
       this.state.registration.email.length < 2 ||
@@ -52,6 +55,7 @@ class Registration extends Component {
       this.setState({
         passwordErr: "password must be at least 8 charachters long",
       });
+      this.setState({ formValid: false });
     }
     if (
       this.state.registration.passwordConfirm !==
@@ -60,11 +64,15 @@ class Registration extends Component {
       this.setState({
         passwordConfirmErr: "password not the same",
       });
+      this.setState({ formValid: false });
     }
   };
   submitRegistration = (e) => {
     e.preventDefault();
     this.handleValidation();
+    if (this.state.formValid) {
+      alert("form  valid");
+    }
   };
   render() {
     return (
