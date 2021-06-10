@@ -18,20 +18,22 @@ function App() {
     <div className="App ">
      <Router> 
        <MyNav/>
-       <Route path="/welcome" component={Welcome} />
+       <Route path="/Home"  component={Welcome} />
       {/* <Welcome/> */}
-     {/*  <WarningSign message="alert message to be displayed" />
-      <MyBadge text="Warning" color="danger" />
-      <h3>Single Book</h3>
+    {/*   <Route path="/HOme" exact render={routerProps=><WarningSign {...routerProps} message="alert message to be displayed" />}/> */}
+    {/*   <WarningSign message="alert message to be displayed" /> */}
+      {/* <MyBadge text="Warning" color="danger" /> */}
+   {/*    <h3>Single Book</h3>
       
       <Col xs={3} className="mx-auto">
         <SingleBook book={fantasyBooks[0]} />
-      </Col>
+      </Col> */}
+     
+     {/*  <BookList category={fantasyBooks.filter((book, i) => i < 12)} /> */}
+      <Route path="/Home" exact render={routerProps=><BookList {...routerProps} category={fantasyBooks.filter((book, i) => i < 12)} />}/>
+   {/*    <MyFooter/> */}
 
-      <BookList category={fantasyBooks.filter((book, i) => i < 12)} />
-      <MyFooter/> */}
-
-  <Route path="/register" render={routerProps=><Registration {...routerProps}/>}/>
+  <Route path="/register" exact render={routerProps=><Registration {...routerProps}/>}/>
 
   </Router>
 

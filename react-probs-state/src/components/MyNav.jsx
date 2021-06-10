@@ -19,10 +19,14 @@ const MyNav = ({ history }) => (
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="mr-auto">
-        <Link to="/welcome">
+        {/*   <Link to="/welcome">
           <div className="nav-link">Welcome</div>
+        </Link> */}
+        <Link to="/Home">
+          <div className="nav-link">Home</div>
         </Link>
-        <Nav.Link href="#features">Home</Nav.Link>
+
+        {/*   <Nav.Link href="#features">Home</Nav.Link> */}
         <Nav.Link href="#pricing">About</Nav.Link>
         <Nav.Link href="#features">Browse</Nav.Link>
         {/* <Link to="/register">
