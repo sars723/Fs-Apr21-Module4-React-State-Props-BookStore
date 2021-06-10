@@ -1,6 +1,7 @@
 import { Navbar, Nav } from "react-bootstrap";
+import { Link, withRouter } from "react-router-dom";
 
-const MyNav = () => (
+const MyNav = ({ history }) => (
   <Navbar
     collapseOnSelect
     expand="lg"
@@ -18,11 +19,18 @@ const MyNav = () => (
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="mr-auto">
-        <Nav.Link href="#features">Homes</Nav.Link>
+        <Link to="/welcome">
+          <div className="nav-link">Welcome</div>
+        </Link>
+        <Nav.Link href="#features">Home</Nav.Link>
         <Nav.Link href="#pricing">About</Nav.Link>
         <Nav.Link href="#features">Browse</Nav.Link>
+        {/* <Link to="/register">
+          <button></button>
+        </Link> */}
+        <button onClick={() => history.push("/register")}>Registration</button>
       </Nav>
     </Navbar.Collapse>
   </Navbar>
 );
-export default MyNav;
+export default withRouter(MyNav);

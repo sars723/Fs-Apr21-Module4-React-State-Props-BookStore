@@ -10,23 +10,33 @@ import CommentArea from "./components/CommentArea";
 import MyNav from "./components/MyNav";
 import Welcome from './components/Welcome'
 import MyFooter from "./components/MyFooter";
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Registration from "./components/Registration";
 
 function App() {
   return (
     <div className="App ">
-      <MyNav/>
-      <Welcome/>
-      <WarningSign message="alert message to be displayed" />
+     <Router> 
+       <MyNav/>
+       <Route path="/welcome" component={Welcome} />
+      {/* <Welcome/> */}
+     {/*  <WarningSign message="alert message to be displayed" />
       <MyBadge text="Warning" color="danger" />
       <h3>Single Book</h3>
-      {/* <CommentArea /> */}
+      
       <Col xs={3} className="mx-auto">
         <SingleBook book={fantasyBooks[0]} />
       </Col>
 
       <BookList category={fantasyBooks.filter((book, i) => i < 12)} />
-      <MyFooter/>
+      <MyFooter/> */}
+
+  <Route path="/register" render={routerProps=><Registration {...routerProps}/>}/>
+
+  </Router>
+
     </div>
+    
   );
 }
 
